@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/action_spending_tracker"
+        android:title="הוצאות"
+        android:icon="@drawable/spend_icons"
+        android:enabled="true"/>
+    <item
+        android:id="@+id/action_home"
+        android:title="מסך הבית"
+        android:icon="@drawable/home_icons"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/action_wage_counter"
+        android:title="שכר עבודה"
+        android:icon="@drawable/earn_icons"
+        android:enabled="true"
+        />
+</menu>

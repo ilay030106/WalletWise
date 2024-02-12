@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_project2"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".UserInfoAndHomeScreen.SetUpActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvWallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wallet"
+            android:textColor="@color/black"
+            android:textSize="55sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvWise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wise"
+            android:textColor="@color/lightBlue"
+            android:textSize="55sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="לפני שנתחיל, צריך לדעת עלייך כמה פרטים"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.165" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:helperText="*חובה"
+        app:helperTextTextColor="@color/black"
+        app:shapeAppearanceOverlay="@style/EditTextRoundedCorners"
+        app:startIconContentDescription="תיאור ההוצאה"
+        app:startIconDrawable="@drawable/user_icon"
+        app:startIconTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="אנא ציין את שמך"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="אנא ציין את השכר השעתי שלך"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="10"
+        app:counterTextColor="@color/black"
+        app:helperText="*חובה"
+        app:helperTextTextColor="@color/black"
+        app:prefixText="₪"
+        app:prefixTextColor="@color/black"
+        app:shapeAppearanceOverlay="@style/EditTextRoundedCorners"
+        app:startIconContentDescription="שכר שעתי"
+        app:startIconDrawable="@drawable/shekel_sign_icon"
+        app:startIconTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/etWage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="10"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/lightBlue"
+        android:text="אני מוכן להתחיל"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+       	/>
+
+
+</LinearLayout>

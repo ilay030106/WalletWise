@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Earnings.EarningScreens.EarningListFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:visibility="visible">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPrevMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:backgroundTint="@color/lightBlue"
+            android:clickable="true"
+            app:srcCompat="@drawable/arrow_left_icon"
+            app:elevation="12dp"/>
+
+        <TextView
+            android:id="@+id/tvCurEarningMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="תאריך"
+            android:textColor="@color/black"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabNextMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:backgroundTint="@color/lightBlue"
+            android:clickable="true"
+            app:srcCompat="@drawable/arrow_right_icon"
+            app:elevation="12dp"/>
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewE"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/white" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <com.linroid.filtermenu.library.FilterMenuLayout
+                android:id="@+id/filter_menuEarnings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:elevation="8dp"
+                app:fm_centerBottom="50dp"
+                app:fm_centerRight="50dp"
+                app:fm_collapsedRadius="24dp"
+                app:fm_expandedRadius="85dp"
+                app:fm_primaryColor="@color/lightBlue"
+                app:fm_primaryDarkColor="@color/lightBlueSecColor"
+                >
+
+            </com.linroid.filtermenu.library.FilterMenuLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/MonthlyInfoLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="33dp"
+            android:gravity="left"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tvMonthlyHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="00:00 שעות "
+                android:textColor="@color/black"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMonthlyEarnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text=" ₪0"
+                android:textColor="@color/black"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">WalletWise</string>
+    <string-array name="types">
+        <item>אוכל</item>
+        <item>בגדים</item>
+        <item>אירועים</item>
+        <item>נעליים</item>
+        <item>אירועי ספורט</item>
+        <item>הזמנות באינטרנט</item>
+        <item>משחקי מחשב</item>
+        <item>איפור</item>
+    </string-array>
+    <string-array name="months">
+        <item>ינואר</item>
+        <item>פברואר</item>
+        <item>מרץ</item>
+        <item>אפריל</item>
+        <item>מאי</item>
+        <item>יוני</item>
+        <item>יולי</item>
+        <item>אוגוסט</item>
+        <item>ספטמבר</item>
+        <item>אוקטובר</item>
+        <item>נובמבר</item>
+        <item>דצמבר</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

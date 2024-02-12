@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spendingListLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Spendings.SpendingScreens.SpendingListFragment">
+
+    <TextView
+        android:id="@+id/infoToDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="מידע להציג"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6.8"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                app:queryHint="חפש הוצאות" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabFilters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@drawable/filter_icon"
+                app:backgroundTint="@color/lightBlue"
+                app:fabCustomSize="50dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewS"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/black" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+
+            <com.linroid.filtermenu.library.FilterMenuLayout
+                android:id="@+id/filter_menu_spendings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:elevation="8dp"
+                app:fm_centerBottom="50dp"
+                app:fm_centerRight="50dp"
+                app:fm_collapsedRadius="24dp"
+                app:fm_expandedRadius="85dp"
+                app:fm_primaryColor="@color/lightBlue"
+                app:fm_primaryDarkColor="@color/lightBlueSecColor"
+                >
+            </com.linroid.filtermenu.library.FilterMenuLayout>
+
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.WalletWise" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+         <item name="colorPrimary">@color/lightBlue</item>
+        <item name="colorPrimaryVariant">@color/lightBlueSecColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="Theme.WalletWise" parent="Base.Theme.WalletWise" />
+    <style name="BottomSheetStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyleTheme</item>
+    </style>
+
+    <style name="BottomSheetStyleTheme">
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+</resources>
