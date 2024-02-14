@@ -42,7 +42,6 @@ import com.google.android.material.timepicker.TimeFormat;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Calendar;
 
 public class UpdateSpendingFragment extends Fragment implements View.OnClickListener, NumberPicker.OnValueChangeListener {
@@ -81,7 +80,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
         btnDelete = view.findViewById(R.id.btnDelete);
         btnPhotoU = view.findViewById(R.id.btnPhotoU);
         fabCloseU = view.findViewById(R.id.fabCloseU);
-        fabShowPic = view.findViewById(R.id.fabShowPic);
+        fabShowPic = view.findViewById(R.id.fabShowPicU);
         tvDate = view.findViewById(R.id.tvDateU);
         tvTime = view.findViewById(R.id.tvTimeU);
         btnUpdate.setOnClickListener(this);
@@ -226,7 +225,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
                 soh.close();
                 byte[] image = c.getPic();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-                imgPicU = dialog.findViewById(R.id.imgPicU);
+                imgPicU = dialog.findViewById(R.id.imgPic);
                 imgPicU.setImageBitmap(bitmap);
                 dialog.show();
             }

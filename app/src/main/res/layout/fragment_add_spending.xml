@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@android:color/transparent"
+    android:background="@drawable/card_border"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Spendings.SpendingScreens.AddSpendingFragment">
+    tools:context=".Spendings.SpendingScreens.AddSpendingFragment"
+    android:layout_margin="15dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingRight="15dp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabClose"
@@ -22,11 +25,10 @@
             android:backgroundTint="@color/lightBlue"
             android:clickable="true"
             app:srcCompat="@drawable/close_icon"
-            app:elevation="10dp"/>
+            app:elevation="10dp"
+            />
 
-        <Space
-            android:layout_width="15dp"
-            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 
@@ -115,17 +117,6 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="תאריך ההוצאה"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDate"
         android:layout_width="wrap_content"
@@ -135,17 +126,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:icon="@drawable/date_icon" />
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="שעת ההוצאה"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTime"
@@ -157,15 +137,36 @@
         android:textStyle="bold"
         app:icon="@drawable/time_icon" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPhoto"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#286CED"
-        android:text="הוסף תמונה"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:icon="@drawable/cam_icon" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabShowPic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/info_icon"
+            app:backgroundTint="@color/lightBlue"
+            app:fabCustomSize="50dp"
+            app:tint="@color/white"
+
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#286CED"
+            android:text="הוסף תמונה "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:icon="@drawable/cam_icon" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddSpend"
@@ -176,12 +177,5 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:icon="@drawable/add_icon" />
-
-    <ImageView
-        android:id="@+id/imgPic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@drawable/no_img"
-        tools:visibility="visible" />
 
 </LinearLayout>

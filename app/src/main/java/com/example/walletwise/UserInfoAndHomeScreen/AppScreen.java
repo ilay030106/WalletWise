@@ -30,9 +30,10 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 public class AppScreen extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     BottomNavigationView bnv;
+    int flag=-1;
 
 
-    SmoothBottomBar snb;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -40,31 +41,12 @@ public class AppScreen extends AppCompatActivity implements NavigationBarView.On
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_app_screen);
-        snb = findViewById(R.id.snb_spendingScreen);
         bnv = findViewById(R.id.bnv_appScreen);
         bnv.setOnItemSelectedListener(this);
         bnv.setSelectedItemId(R.id.action_home);
-        snb.setItemActiveIndex(1);
         replaceFragment(new HomeScreenFragment());
-        snb.setBarCorners(30);
 
-        snb.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public boolean onItemSelect(int i) {
 
-                if(i==0){
-                    replaceFragment(new SpendingListFragment());
-                }
-                if(i==1){
-                    replaceFragment(new HomeScreenFragment());
-                }
-                if(i==2){
-                    replaceFragment( new EarningListFragment());
-                }
-
-                return false;
-            }
-        });
 
 
     }
@@ -85,9 +67,11 @@ public class AppScreen extends AppCompatActivity implements NavigationBarView.On
         }
         if(item.getItemId()==R.id.action_spending_tracker){
             replaceFragment(new SpendingListFragment());
+            flag=1;
         }
         if(item.getItemId()==R.id.action_wage_counter){
             replaceFragment(new EarningListFragment());
+            flag=0;
         }
         return true;
 

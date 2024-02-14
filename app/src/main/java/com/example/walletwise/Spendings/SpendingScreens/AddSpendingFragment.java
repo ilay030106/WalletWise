@@ -3,25 +3,23 @@ package com.example.walletwise.Spendings.SpendingScreens;
 import static java.lang.Double.parseDouble;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,14 +48,13 @@ import java.util.Calendar;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AddSpendingFragment extends Fragment implements View.OnClickListener {
     TextInputEditText etDesc, etPrice;
-    TextView tvDate, tvTime;
     MaterialTimePicker timePicker;
     MaterialDatePicker datePicker;
     Button btnAddSpend, btnDate, btnTime, btnPhoto;
 
     String time1 = "", date1 = "", spendType = "", item = "";
 
-    FloatingActionButton fabClose;
+    FloatingActionButton fabClose,fabShowPic;
 
     SpendingsOpenHelper soh;
     String[] types;
@@ -66,6 +63,8 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     private int GALLERY = 1, CAMERA = 2;
     MaterialAutoCompleteTextView etType;
     ArrayAdapter<String> adapter;
+    boolean hasPic=false;
+    Bitmap bitmap1;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -86,8 +85,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
         btnTime = view.findViewById(R.id.btnTime);
         btnPhoto = view.findViewById(R.id.btnPhoto);
         fabClose = view.findViewById(R.id.fabClose);
-        tvDate = view.findViewById(R.id.tvDate);
-        tvTime = view.findViewById(R.id.tvTime);
+        fabShowPic = view.findViewById(R.id.fabShowPic);
         imgPic = view.findViewById(R.id.imgPic);
         etType = view.findViewById(R.id.etTypeDropMenu);
         btnAddSpend.setOnClickListener(this);
@@ -95,6 +93,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
         btnTime.setOnClickListener(this);
         btnPhoto.setOnClickListener(this);
         fabClose.setOnClickListener(this);
+        fabShowPic.setOnClickListener(this);
         types = getResources().getStringArray(R.array.types);
         adapter = new ArrayAdapter<>(getActivity(), R.layout.type_dropdown_item, types);
         etType.setAdapter(adapter);
@@ -115,7 +114,6 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 int minute = timePicker.getMinute();
                 int hour = timePicker.getHour();
                 time1 = String.format("%02d:%02d", hour, minute);
-                tvTime.setVisibility(View.VISIBLE);
                 btnTime.setText(time1);
                 timePicker.dismiss();
             }
@@ -135,7 +133,6 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 int year = systemCalender.get(Calendar.YEAR);
                 int monthOfYear = systemCalender.get(Calendar.MONTH) + 1;
                 int dayOfMonth = systemCalender.get(Calendar.DAY_OF_MONTH);
-                tvDate.setVisibility(View.VISIBLE);
                 date1 = String.format("%02d/%02d/%d", dayOfMonth, monthOfYear, year);
                 btnDate.setText(date1);
                 datePicker.dismiss();
@@ -195,6 +192,19 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 }
             }
         }
+        if(v==fabShowPic){
+            if(bitmap1!=null) {
+                Dialog dialog = new Dialog(getActivity());
+                dialog.setCancelable(true);
+                dialog.setContentView(R.layout.pic_dialog);
+                imgPic = dialog.findViewById(R.id.imgPic);
+                imgPic.setImageBitmap(bitmap1);
+                dialog.show();
+            }
+            else{
+                Toast.makeText(getActivity(),"לא הוזנה תמונה עדיין ",Toast.LENGTH_LONG);
+            }
+        }
     }
 
 
@@ -250,7 +260,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
                     Toast.makeText(getActivity(), "Image Saved!", Toast.LENGTH_SHORT).show();
-                    imgPic.setImageBitmap(bitmap);
+                    bitmap1=bitmap;
 
                 } catch (IOException e) {
                     e.printStackTrace();

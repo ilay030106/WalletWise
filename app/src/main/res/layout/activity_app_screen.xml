@@ -29,18 +29,5 @@
         android:layout_margin="15dp"
         />
 
-    <me.ibrahimsn.lib.SmoothBottomBar
-        android:id="@+id/snb_spendingScreen"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:elevation="5dp"
-        android:visibility="gone"
-        app:backgroundColor="@color/lightBlue"
-        app:iconTintActive="@color/black"
-        app:indicatorRadius="10dp"
-        app:menu="@menu/menu_navigation"
-        app:textColor="@color/black" />
-
-
 
 </LinearLayout>

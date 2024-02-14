@@ -34,7 +34,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
     private Calendar c = Calendar.getInstance();
     private int curMonth = c.get(Calendar.MONTH), curYear = c.get(Calendar.YEAR);
     private String name = "", curMonthDisplay = "", DateToDisplay = "", curYearS = Integer.toString(curYear), curMonthS = "", spendSumS = "", earnSumS = "", sumstateS = "";
-    private FloatingActionButton fabNextMonth1, fabPrevMonth1, fabSpendInfo, fabCloseSpendInfo;
+    private FloatingActionButton fabNextMonth1, fabPrevMonth1;
     private SpendingsOpenHelper soh;
     private EarningsOpenHelper eoh;
     private PieChart pieChart;
@@ -194,23 +194,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
             }
 
         }
-        if (v == fabSpendInfo) {
-            if (sumSpend > 0) {
-                dialog = new Dialog(getActivity());
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.spend_info);
-                pieChart = dialog.findViewById(R.id.pieChart);
-                fabCloseSpendInfo = dialog.findViewById(R.id.fabCloseSpendInfo);
-                fabCloseSpendInfo.setOnClickListener(this);
-                pieChartSetUp();
-                dialog.show();
-            } else {
-                Toast.makeText(getActivity(), "אתה צריך להוציא כסף בשביל לראות תיאור מפורט", Toast.LENGTH_LONG).show();
-            }
-        }
-        if (v == fabCloseSpendInfo) {
-            dialog.dismiss();
-        }
+
     }
     public void pieChartSetUp() {
         PieDataSet pieDataSet = new PieDataSet(TypesDataByDate(curMonthS, curYearS, types), "data set 1");
