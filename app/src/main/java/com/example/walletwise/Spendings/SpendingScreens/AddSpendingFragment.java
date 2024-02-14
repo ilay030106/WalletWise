@@ -52,7 +52,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     MaterialDatePicker datePicker;
     Button btnAddSpend, btnDate, btnTime, btnPhoto;
 
-    String time1 = "", date1 = "", spendType = "", item = "";
+    String time1 = "", date1 = "", spendType = "",desc="",type1="";
 
     FloatingActionButton fabClose,fabShowPic;
 
@@ -65,6 +65,8 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     ArrayAdapter<String> adapter;
     boolean hasPic=false;
     Bitmap bitmap1;
+    double priceDouble=0;
+    byte []img;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -140,6 +142,11 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
 
 
         });
+        desc = etDesc.getText().toString();
+        priceDouble = parseDouble(etPrice.getText().toString());
+        date1 = btnDate.getText().toString();
+        time1 = btnTime.getText().toString();
+        type1 = etType.getText().toString();
     }
 
     @Override
@@ -161,12 +168,12 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
 
         }
         if (v == btnAddSpend) {
-            String desc = etDesc.getText().toString();
-            double priceDouble = parseDouble(etPrice.getText().toString());
-            String date1 = btnDate.getText().toString();
-            String time1 = btnTime.getText().toString();
-            String type1 = etType.getText().toString();;
-            byte[] img = imageViewToByte(imgPic);
+             desc = etDesc.getText().toString();
+             priceDouble = parseDouble(etPrice.getText().toString());
+             date1 = btnDate.getText().toString();
+             time1 = btnTime.getText().toString();
+             type1 = etType.getText().toString();
+             img = imageViewToByte(imgPic);
 
             if (date1.equals("")) {
                 Toast.makeText(getActivity(), "אתה צריך לבחור תאריך בשביל לשמור הוצאה", Toast.LENGTH_LONG).show();
@@ -294,5 +301,15 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
         return byteArray;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
-}
+
+
+        }
+    }
+
+
+
+
