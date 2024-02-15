@@ -150,7 +150,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
 
         });
         desc = etDesc.getText().toString();
-        priceDouble = parseDouble(etPrice.getText().toString());
+        priceDouble = 0;
         date1 = btnDate.getText().toString();
         time1 = btnTime.getText().toString();
         type1 = etType.getText().toString();
@@ -226,7 +226,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
             monthly=1;
             swtchMonthlyExp.setThumbIconDrawable(getResources().getDrawable(R.drawable.spendings_full));
             swtchMonthlyExp.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
-            swtchMonthlyExp.setTrackDecorationTintList(ColorStateList.valueOf(getResources().getColor(R.color.switchBlue)));
+            swtchMonthlyExp.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.switchBlue)));
 
             //לעשות סרוויס להוצאה קבועה
         }
@@ -234,7 +234,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
             monthly=0;
             swtchMonthlyExp.setThumbIconDrawable(getResources().getDrawable(R.drawable.spending_tracker_icon));
             swtchMonthlyExp.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.switchBlue)));
-            swtchMonthlyExp.setTrackDecorationTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
+            swtchMonthlyExp.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
             //לעשות סרוויס להוצאה קבועה
         }
 

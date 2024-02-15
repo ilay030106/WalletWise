@@ -14,7 +14,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASENAME = "DBspend3";//שם מסד נתונים
     public static final String TABLE_SPENDING = "tblSpend3";//שם הטבלה
-    public static final int DATABASEVERSION = 2;
+    public static final int DATABASEVERSION = 3;
 
     public static final String COLUMN_ID = "ID";//מפתח ראשי - מספור אוטומטי
 
@@ -38,7 +38,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
             + COLUMN_IMAGE + " BLOB, "
             + COLUMN_MONTHLY + " INTEGER " + ");";
 
-    String[] allColumns = {COLUMN_ID, COLUMN_DESC, COLUMN_PRICE, COLUMN_TYPE, COLUMN_DATE, COLUMN_TIME, COLUMN_IMAGE,COLUMN_MONTHLY};
+    String[] allColumns = {COLUMN_ID, COLUMN_DESC, COLUMN_PRICE, COLUMN_TYPE, COLUMN_DATE, COLUMN_TIME, COLUMN_IMAGE, COLUMN_MONTHLY};
 
     SQLiteDatabase database;
 
@@ -100,7 +100,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                 int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
 
                 //יצירת בזבוז
-                Spending spending = new Spending(desc, price, type, date, time, pic,monthly);
+                Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
                 //עדכון מפתח ראשי
                 spending.setId(id);
                 //הוספת בזבוז לרשימת בזבוזים
@@ -127,7 +127,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
 
 
                 if (id == id1) {
-                    Spending spend = new Spending(desc, price, type, date, time, pic,monthly);
+                    Spending spend = new Spending(desc, price, type, date, time, pic, monthly);
                     spend.setId(id);
                     return spend;
                 }
@@ -186,15 +186,15 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Spending spending = new Spending(
-                        cursor.getString(1),
-                        cursor.getDouble(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getBlob(6),
-                        cursor.getInt(7)
+                        cursor.getString(cursor.getColumnIndex(COLUMN_DESC)),
+                        cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_TYPE)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_DATE)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_TIME)),
+                        cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE)),
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY))
                 );
-                spending.setId(Integer.parseInt(cursor.getString(0)));
+                spending.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
                 spendingList.add(spending);
             } while (cursor.moveToNext());
 
@@ -237,7 +237,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                 String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                 byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
                 int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
-                Spending spending = new Spending(desc, price, type, date, time, pic,monthly);
+                Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
                 spending.setId(id);
                 if (type.equals(type1))
                     return true;
@@ -265,7 +265,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                     String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                     byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
                     int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
-                    Spending spending = new Spending(desc, price, type, date, time, pic,monthly);
+                    Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
                     spending.setId(id);
                     if (type.equals(type1))
                         count++;
@@ -277,12 +277,8 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
     public int countAllSpendingsByDate(String month, String year) {
-        int count=0;
+        int count = 0;
         String selectQuery = "SELECT * FROM " + TABLE_SPENDING + " WHERE ";
         selectQuery += COLUMN_DATE + " LIKE '%/" + month + "/" + year + "' AND ";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -298,7 +294,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                 String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                 byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
                 int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
-                Spending spending = new Spending(desc, price, type, date, time, pic,monthly);
+                Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
                 spending.setId(id);
                 count++;
 
@@ -306,8 +302,6 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
         }
         return count;
     }
-
-
 
 
 }
