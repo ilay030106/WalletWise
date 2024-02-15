@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ import com.example.walletwise.UserInfoAndHomeScreen.AppScreen;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -46,7 +49,7 @@ import java.io.IOException;
 import java.util.Calendar;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class AddSpendingFragment extends Fragment implements View.OnClickListener {
+public class AddSpendingFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     TextInputEditText etDesc, etPrice;
     MaterialTimePicker timePicker;
     MaterialDatePicker datePicker;
@@ -67,6 +70,8 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     Bitmap bitmap1;
     double priceDouble=0;
     byte []img;
+    MaterialSwitch swtchMonthlyExp;
+    int monthly=0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -90,12 +95,14 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
         fabShowPic = view.findViewById(R.id.fabShowPic);
         imgPic = view.findViewById(R.id.imgPic);
         etType = view.findViewById(R.id.etTypeDropMenu);
+        swtchMonthlyExp = view.findViewById(R.id.swtchMonthlyExp);
         btnAddSpend.setOnClickListener(this);
         btnDate.setOnClickListener(this);
         btnTime.setOnClickListener(this);
         btnPhoto.setOnClickListener(this);
         fabClose.setOnClickListener(this);
         fabShowPic.setOnClickListener(this);
+        swtchMonthlyExp.setOnCheckedChangeListener(this);
         types = getResources().getStringArray(R.array.types);
         adapter = new ArrayAdapter<>(getActivity(), R.layout.type_dropdown_item, types);
         etType.setAdapter(adapter);
@@ -189,7 +196,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 etDesc.setError("המחיר צריך להיות גדול מ0");
             } else {
                 soh.open();
-                Spending spend = new Spending(desc, priceDouble, type1, date1, time1, img);
+                Spending spend = new Spending(desc, priceDouble, type1, date1, time1, img,monthly);
                 soh.createSpending(spend);
                 soh.close();
                 Toast.makeText(getActivity(), "ההוצאה נשמרה בהצלחה! ", Toast.LENGTH_LONG).show();
@@ -212,6 +219,27 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 Toast.makeText(getActivity(),"לא הוזנה תמונה עדיין ",Toast.LENGTH_LONG);
             }
         }
+    }
+    @Override
+    public void onCheckedChanged(CompoundButton cb, boolean b) {
+        if(cb==swtchMonthlyExp&& b){
+            monthly=1;
+            swtchMonthlyExp.setThumbIconDrawable(getResources().getDrawable(R.drawable.spendings_full));
+            swtchMonthlyExp.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
+            swtchMonthlyExp.setTrackDecorationTintList(ColorStateList.valueOf(getResources().getColor(R.color.switchBlue)));
+
+            //לעשות סרוויס להוצאה קבועה
+        }
+        if(cb==swtchMonthlyExp&& !b){
+            monthly=0;
+            swtchMonthlyExp.setThumbIconDrawable(getResources().getDrawable(R.drawable.spending_tracker_icon));
+            swtchMonthlyExp.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.switchBlue)));
+            swtchMonthlyExp.setTrackDecorationTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
+            //לעשות סרוויס להוצאה קבועה
+        }
+
+
+
     }
 
 
@@ -308,7 +336,9 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
 
 
         }
-    }
+
+
+}
 
 
 

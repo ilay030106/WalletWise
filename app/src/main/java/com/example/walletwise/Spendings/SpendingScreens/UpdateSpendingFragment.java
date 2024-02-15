@@ -64,6 +64,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
     boolean hasPic;
     private static final String IMAGE_DIRECTORY = "/demonuts";
     private int GALLERY = 1, CAMERA = 2;
+    int monthly=0;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Nullable
@@ -71,6 +72,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_update_spending, container, false);
         soh = new SpendingsOpenHelper(requireContext());
+
         etDesc = view.findViewById(R.id.etDescU);
         etPrice = view.findViewById(R.id.etPriceU);
         etTypeU = view.findViewById(R.id.etTypeDropMenuU);
@@ -96,6 +98,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
         etTypeU.setOnItemClickListener((adapterView, view1, i, l) ->
                 spendType = adapterView.getItemAtPosition(i).toString());
         soh = new SpendingsOpenHelper(getActivity());
+        monthly=0;
         Bundle bundle = getArguments();
         if (bundle != null) {
             id = bundle.getLong("id");
@@ -109,6 +112,9 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
             etTypeU.setText(c.getType());
             btnDate.setText(c.getDate());
             btnTime.setText(c.getTime());
+            if(c.getMonthly()==1){
+                monthly=1;
+            }
             hasPic=true;
         }
         timePicker = new MaterialTimePicker.Builder()
@@ -171,6 +177,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
             String time1=btnTime.getText().toString();
             String type1 = etTypeU.getText().toString();
             byte[] img= imageViewToByte(imgPicU);
+            int monthlyExp=monthly;
             if(date1.equals("")){
                 Toast.makeText(getActivity(),"אתה צריך לבחור תאריך בשביל לשמור הוצאה",Toast.LENGTH_LONG).show();
             }
@@ -189,7 +196,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
 
             }
             else{
-                Spending s = new Spending(desc,priceDouble,type1,date1,time1,img);
+                Spending s = new Spending(desc,priceDouble,type1,date1,time1,img,monthlyExp);
                 s.setId(id);
                 soh.open();
                 soh.updateSpending(s);
