@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.CAMERA"
@@ -32,24 +34,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WalletWise"
         tools:targetApi="31" >
-        <activity
-            android:name=".Earnings.EarningScreens.UpdateEarning"
-            android:exported="false" />
-        <activity
-            android:name=".Earnings.EarningScreens.EarningAdd"
-            android:exported="false" />
-        <activity
-            android:name=".Earnings.EarningScreens.EarningScreen"
-            android:exported="false" />
-        <activity
-            android:name=".Spendings.SpendingScreens.UpdateSpendingActivity"
-            android:exported="false" />
+        <service android:name=".Spendings.SpendingScreens.MonthlyExpService"/>
+
+
+
+
         <activity
             android:name=".UserInfoAndHomeScreen.AppScreen"
             android:exported="true" />
-        <activity
-            android:name=".Spendings.SpendingScreens.SpendingAdd"
-            android:exported="false" />
+
         <activity
             android:name=".UserInfoAndHomeScreen.SetUpActivity"
             android:exported="true" >

@@ -1,9 +1,13 @@
 package com.example.walletwise.Spendings.SpendingScreens;
 
+import static androidx.core.content.ContextCompat.getSystemService;
 import static java.lang.Double.parseDouble;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -47,6 +51,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Objects;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AddSpendingFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -55,7 +60,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     MaterialDatePicker datePicker;
     Button btnAddSpend, btnDate, btnTime, btnPhoto;
 
-    String time1 = "", date1 = "", spendType = "",desc="",type1="";
+    String time1 = "", date1 = "", spendType = "",desc="",type1="",dayOfMonth =" ",monthAndYear = " ";
 
     FloatingActionButton fabClose,fabShowPic;
 
@@ -73,6 +78,8 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     MaterialSwitch swtchMonthlyExp;
     int monthly=0;
     boolean finished;
+    String[] Months;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -87,6 +94,8 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         finished=false;
+        Months = getResources().getStringArray(R.array.months);
+
         etDesc = view.findViewById(R.id.etDesc);
         etPrice = view.findViewById(R.id.etPrice);
         btnAddSpend = view.findViewById(R.id.btnAddSpend);
@@ -142,9 +151,11 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 Calendar systemCalender = Calendar.getInstance();
                 systemCalender.setTimeInMillis(selection);
                 int year = systemCalender.get(Calendar.YEAR);
-                int monthOfYear = systemCalender.get(Calendar.MONTH) + 1;
-                int dayOfMonth = systemCalender.get(Calendar.DAY_OF_MONTH);
-                date1 = String.format("%02d/%02d/%d", dayOfMonth, monthOfYear, year);
+                int monthOfYear = systemCalender.get(Calendar.MONTH);
+                int dayOfMonth1 = systemCalender.get(Calendar.DAY_OF_MONTH);
+                dayOfMonth=String.format("%02d",dayOfMonth1);
+                monthAndYear = year  + " " + Months[monthOfYear];
+                date1 = String.format("%02d/%02d/%d", dayOfMonth1, monthOfYear+1, year);
                 btnDate.setText(date1);
                 datePicker.dismiss();
             }
@@ -203,6 +214,16 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 soh.close();
                 finished=true;
                 Toast.makeText(getActivity(), "ההוצאה נשמרה בהצלחה! ", Toast.LENGTH_LONG).show();
+                if(monthly==1){
+                    Intent i= new Intent(getActivity(), MonthlyExpService.class);
+                    i.putExtra("dayOfMonth",dayOfMonth);
+                    i.putExtra("monthAndYear",monthAndYear);
+                    i.putExtra("desc",desc);
+                    requireActivity().startService(i);
+                }
+
+
+
                 if (getActivity() instanceof AppScreen) {
                     AppScreen appScreen = (AppScreen) getActivity();
                     appScreen.replaceFragment(new SpendingListFragment());
@@ -331,6 +352,16 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
+   /* private void setFutureAlarm(long timeInMillis)
+    {
+        Intent after = new Intent(getActivity(), MonthlyExpService.class);
+        PendingIntent afterIntent = PendingIntent.getService(getActivity(),
+                0, after, PendingIntent.FLAG_IMMUTABLE);
+
+        AlarmManager alMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alMgr.set(AlarmManager.RTC_WAKEUP, timeInMillis, afterIntent);
+
+    }*/
 
     @Override
     public void onDestroy() {
