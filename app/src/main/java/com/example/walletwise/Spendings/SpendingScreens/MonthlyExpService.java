@@ -70,8 +70,8 @@ public class MonthlyExpService extends Service {
                 new NotificationCompat.Builder(this,CHANNEL_ID)
                         .setSmallIcon(R.drawable.spending_tracker_icon)
                         .setContentTitle(title)
-                        .setContentText(message)
-                        .setWhen(System.currentTimeMillis());
+                        .setContentText(message);
+                        //.setWhen(System.currentTimeMillis());
 
         ;
 
