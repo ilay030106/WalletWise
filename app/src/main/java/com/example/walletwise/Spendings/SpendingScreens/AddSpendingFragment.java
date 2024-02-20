@@ -72,6 +72,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     byte []img;
     MaterialSwitch swtchMonthlyExp;
     int monthly=0;
+    boolean finished;
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -85,6 +86,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        finished=false;
         etDesc = view.findViewById(R.id.etDesc);
         etPrice = view.findViewById(R.id.etPrice);
         btnAddSpend = view.findViewById(R.id.btnAddSpend);
@@ -199,6 +201,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 Spending spend = new Spending(desc, priceDouble, type1, date1, time1, img,monthly);
                 soh.createSpending(spend);
                 soh.close();
+                finished=true;
                 Toast.makeText(getActivity(), "ההוצאה נשמרה בהצלחה! ", Toast.LENGTH_LONG).show();
                 if (getActivity() instanceof AppScreen) {
                     AppScreen appScreen = (AppScreen) getActivity();
@@ -332,6 +335,9 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(!finished){
+            //לעשות סרוויס
+        }
 
 
 
