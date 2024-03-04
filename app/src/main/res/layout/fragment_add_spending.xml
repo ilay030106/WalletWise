@@ -116,20 +116,6 @@
 
             />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.materialswitch.MaterialSwitch
-        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
-        android:id="@+id/swtchMonthlyExp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="האם זו הוצאה חודשית קבועה?"
-        app:switchTextAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:thumbTint="@color/switchBlue"
-        app:thumbIcon="@drawable/spending_tracker_icon"
-        app:thumbIconTint="@color/white"
-        app:trackTint="@color/lightBlue"
-        app:trackDecorationTint="@color/black"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDate"

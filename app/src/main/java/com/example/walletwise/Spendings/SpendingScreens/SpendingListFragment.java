@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.NumberPicker;
@@ -47,6 +48,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchBar;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.linroid.filtermenu.library.FilterMenu;
@@ -59,7 +61,7 @@ import java.util.List;
 
 public class SpendingListFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, NumberPicker.OnValueChangeListener, SearchView.OnQueryTextListener {
     MaterialButton btnToggle, btnClear;
-    TextInputLayout MinPriceLay, MaxPriceLay;
+    TextInputLayout MinPriceLay, MaxPriceLay,typeLayoutFilter;
     TextInputEditText etMinPrice, etMaxPrice;
     CheckBox cbDate, cbSpendType, cbPrice;
     SpendingsOpenHelper soh;
@@ -71,7 +73,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
     String year = "", month = "", type = "", curMonthDisplay = "", CurYearS = "",CurMonthS = "",DateToDisplay = "";
     int curMonth = 0,curYear=0;
     double max, min,sumSpend = 0;
-    NumberPicker npMonths, npYears, npSpendTypes;
+    NumberPicker npMonths, npYears;
     String[] months, Types,Months;
     Calendar c ;
     PieChart pieChart;
@@ -79,7 +81,10 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
     String textToDisplay="";
     FloatingActionButton fabCloseSpendInfo,fabNextMonth2, fabPrevMonth2,fabFilters;
     TextView curDate1,infoToDisplay;
+    MaterialAutoCompleteTextView SpendTypesDropMenu;
     boolean cbSpendTypeCheck=false,cbDateCheck=false;
+    ArrayAdapter TypesAdapter;
+    String []types;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -182,6 +187,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
     }
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void showFilterDialog() {
+        type = "";
         dialog = new Dialog(requireContext());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCancelable(true);
@@ -195,7 +201,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
         btnToggle = dialog.findViewById(R.id.btnToggle);
         npMonths = dialog.findViewById(R.id.npMonths);
         npYears = dialog.findViewById(R.id.npYears);
-        npSpendTypes = dialog.findViewById(R.id.npSpendTypes);
+        SpendTypesDropMenu = dialog.findViewById(R.id.SpendTypesDropMenu);
         etMaxPrice = dialog.findViewById(R.id.etMaxPrice);
         etMinPrice = dialog.findViewById(R.id.etMinPrice);
         btnClear = dialog.findViewById(R.id.btnClear);
@@ -214,18 +220,17 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
         cbPrice.setOnCheckedChangeListener(this);
         btnToggle.setOnClickListener(this);
         btnClear.setOnClickListener(this);
-        npSpendTypes.setMinValue(0);
-        npSpendTypes.setMaxValue(7);
-        npSpendTypes.setValue(0);
-        npSpendTypes.setOnValueChangedListener(this);
-        npSpendTypes.setDisplayedValues(Types);
+        types = getResources().getStringArray(R.array.types);
+        TypesAdapter = new ArrayAdapter<>(getActivity(), R.layout.type_dropdown_item, types);
+        SpendTypesDropMenu.setAdapter(TypesAdapter);
+        SpendTypesDropMenu.setOnItemClickListener((adapterView, view1, i, l) ->
+                type = adapterView.getItemAtPosition(i).toString());
         dialog.show();
         month = "";
         year = "";
-        type = "";
+
         npMonths.setTextColor(requireContext().getColor(R.color.white));
         npYears.setTextColor(requireContext().getColor(R.color.white));
-        npSpendTypes.setTextColor(requireContext().getColor(R.color.white));
         //להעביר את הכפורים של העברת חודשים לדיאלוג הזה
     }
 
@@ -236,6 +241,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
             dialog.dismiss();
             String maxStr = etMaxPrice.getText().toString();
             String minStr = etMinPrice.getText().toString();
+            type=SpendTypesDropMenu.getText().toString();
             if (maxStr.length() == 0) {
                 
                 max = -1;
@@ -326,12 +332,12 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
             MinPriceLay.setVisibility(View.GONE);
         }
         if (cb == cbSpendType && b) {
-            npSpendTypes.setVisibility(View.VISIBLE);
+            typeLayoutFilter.setVisibility(View.VISIBLE);
             cbSpendTypeCheck=true;
         }
 
         if (cb == cbSpendType && !b) {
-            npSpendTypes.setVisibility(View.GONE);
+            typeLayoutFilter.setVisibility(View.GONE);
             cbSpendTypeCheck=false;
         }
         if (cb == cbDate && b) {
@@ -356,9 +362,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
         if (numberPicker == npYears) {
             year = Integer.toString(newVal);
         }
-        if (numberPicker == npSpendTypes) {
-            type = Types[newVal];
-        }
+
 
 
     }

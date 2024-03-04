@@ -14,7 +14,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASENAME = "DBspend3";//שם מסד נתונים
     public static final String TABLE_SPENDING = "tblSpend3";//שם הטבלה
-    public static final int DATABASEVERSION = 3;
+    public static final int DATABASEVERSION = 4;
 
     public static final String COLUMN_ID = "ID";//מפתח ראשי - מספור אוטומטי
 
