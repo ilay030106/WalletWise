@@ -201,6 +201,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
         btnToggle = dialog.findViewById(R.id.btnToggle);
         npMonths = dialog.findViewById(R.id.npMonths);
         npYears = dialog.findViewById(R.id.npYears);
+        typeLayoutFilter = dialog.findViewById(R.id.typeLayoutFilter);
         SpendTypesDropMenu = dialog.findViewById(R.id.SpendTypesDropMenu);
         etMaxPrice = dialog.findViewById(R.id.etMaxPrice);
         etMinPrice = dialog.findViewById(R.id.etMinPrice);
