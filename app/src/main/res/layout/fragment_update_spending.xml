@@ -119,17 +119,6 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tvDateU"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="תאריך ההוצאה"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDateU"
         android:layout_width="wrap_content"
@@ -139,17 +128,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:icon="@drawable/date_icon"/>
-
-    <TextView
-        android:id="@+id/tvTimeU"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="שעת ההוצאה"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTimeU"
@@ -179,10 +157,9 @@
             />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPhotoU2"
+            android:id="@+id/btnPhotoU"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:backgroundTint="#286CED"
             android:text="עדכן תמונה"
             android:textSize="18sp"
@@ -190,16 +167,6 @@
             app:icon="@drawable/cam_icon" />
 
     </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPhotoU"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#286CED"
-        android:text="עדכן תמונה"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:icon="@drawable/cam_icon"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

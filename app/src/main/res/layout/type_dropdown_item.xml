@@ -11,7 +11,8 @@
     android:padding="16dp"
     android:ellipsize="end"
     android:maxLines="1"
-    android:gravity="right">
+    android:gravity="right"
+    android:backgroundTint="@color/white">
 
 
 

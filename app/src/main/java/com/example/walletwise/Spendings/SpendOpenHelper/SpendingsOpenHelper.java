@@ -26,7 +26,6 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TYPE = "Type";
 
     public static final String COLUMN_IMAGE = "image";
-    public static final String COLUMN_MONTHLY = "MONTHLY";
 
     private static final String CREATE_TABLE_ALL_SPENDINGS = "CREATE TABLE IF NOT EXISTS " +
             TABLE_SPENDING + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -35,10 +34,9 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
             + COLUMN_TYPE + " VARCHAR,"
             + COLUMN_DATE + " VARCHAR,"
             + COLUMN_TIME + " VARCHAR,"
-            + COLUMN_IMAGE + " BLOB, "
-            + COLUMN_MONTHLY + " INTEGER " + ");";
+            + COLUMN_IMAGE + " BLOB " + ");";
 
-    String[] allColumns = {COLUMN_ID, COLUMN_DESC, COLUMN_PRICE, COLUMN_TYPE, COLUMN_DATE, COLUMN_TIME, COLUMN_IMAGE, COLUMN_MONTHLY};
+    String[] allColumns = {COLUMN_ID, COLUMN_DESC, COLUMN_PRICE, COLUMN_TYPE, COLUMN_DATE, COLUMN_TIME, COLUMN_IMAGE, };
 
     SQLiteDatabase database;
 
@@ -73,7 +71,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
         values.put(COLUMN_DATE, Spend.getDate());
         values.put(COLUMN_TIME, Spend.getTime());
         values.put(COLUMN_IMAGE, Spend.getPic());
-        values.put(COLUMN_MONTHLY, Spend.getMonthly());
+
 
 
         long insertId = database.insert(SpendingsOpenHelper.TABLE_SPENDING, null, values);
@@ -97,10 +95,9 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                 byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
-                int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
 
                 //יצירת בזבוז
-                Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
+                Spending spending = new Spending(desc, price, type, date, time, pic);
                 //עדכון מפתח ראשי
                 spending.setId(id);
                 //הוספת בזבוז לרשימת בזבוזים
@@ -123,11 +120,10 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                 byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
-                int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
 
 
                 if (id == id1) {
-                    Spending spend = new Spending(desc, price, type, date, time, pic, monthly);
+                    Spending spend = new Spending(desc, price, type, date, time, pic);
                     spend.setId(id);
                     return spend;
                 }
@@ -146,7 +142,6 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
         values.put(COLUMN_DATE, Spend.getDate());
         values.put(COLUMN_TIME, Spend.getTime());
         values.put(COLUMN_IMAGE, Spend.getPic());
-        values.put(COLUMN_MONTHLY, Spend.getMonthly());
         long updateId = database.update(SpendingsOpenHelper.TABLE_SPENDING, values, COLUMN_ID + "=" + Spend.getId(), null);
         Log.i("data", "UserCar " + updateId + "insert to database");
         return updateId;
@@ -191,9 +186,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                         cursor.getString(cursor.getColumnIndex(COLUMN_TYPE)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_DATE)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_TIME)),
-                        cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY))
-                );
+                        cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE)));
                 spending.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
                 spendingList.add(spending);
             } while (cursor.moveToNext());
@@ -236,8 +229,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                 byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
-                int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
-                Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
+                Spending spending = new Spending(desc, price, type, date, time, pic);
                 spending.setId(id);
                 if (type.equals(type1))
                     return true;
@@ -264,8 +256,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                     String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                     String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                     byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
-                    int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
-                    Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
+                    Spending spending = new Spending(desc, price, type, date, time, pic);
                     spending.setId(id);
                     if (type.equals(type1))
                         count++;
@@ -293,8 +284,7 @@ public class SpendingsOpenHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 String time = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
                 byte[] pic = cursor.getBlob(cursor.getColumnIndex(COLUMN_IMAGE));
-                int monthly = cursor.getInt(cursor.getColumnIndex(COLUMN_MONTHLY));
-                Spending spending = new Spending(desc, price, type, date, time, pic, monthly);
+                Spending spending = new Spending(desc, price, type, date, time, pic);
                 spending.setId(id);
                 count++;
 

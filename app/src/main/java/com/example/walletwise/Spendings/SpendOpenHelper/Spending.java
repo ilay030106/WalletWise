@@ -15,18 +15,18 @@ public class Spending  {
     private String Date;
     private String Time;
     private byte[] pic;
-    private int monthly;
 
 
 
-    public Spending(String desc, double price, String type, String date, String time,byte[] pic,int monthly) {
+
+    public Spending(String desc, double price, String type, String date, String time,byte[] pic) {
         this.desc = desc;
         this.price = price;
         this.Type = type;
         this.Date = date;
         this.Time = time;
         this.pic = pic;
-        this.monthly=monthly;
+
 
     }
 
@@ -88,11 +88,5 @@ public class Spending  {
         this.pic = pic;
     }
 
-    public int getMonthly() {
-        return monthly;
-    }
 
-    public void setMonthly(int monthly) {
-        this.monthly = monthly;
-    }
 }

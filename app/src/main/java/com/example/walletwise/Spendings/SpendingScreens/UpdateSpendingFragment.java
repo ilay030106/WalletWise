@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -35,6 +37,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -48,7 +51,6 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
 
      long id = 0;
      EditText etDesc, etPrice;
-     TextView tvDate, tvTime;
      MaterialButton btnUpdate, btnDate, btnTime, btnDelete, btnPhotoU;
      String time1 = "";
      String date1 = "";
@@ -65,6 +67,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
     private static final String IMAGE_DIRECTORY = "/demonuts";
     private int GALLERY = 1, CAMERA = 2;
     int monthly=0;
+    byte[] blob;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Nullable
@@ -83,8 +86,6 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
         btnPhotoU = view.findViewById(R.id.btnPhotoU);
         fabCloseU = view.findViewById(R.id.fabCloseU);
         fabShowPic = view.findViewById(R.id.fabShowPicU);
-        tvDate = view.findViewById(R.id.tvDateU);
-        tvTime = view.findViewById(R.id.tvTimeU);
         btnUpdate.setOnClickListener(this);
         btnDate.setOnClickListener(this);
         btnTime.setOnClickListener(this);
@@ -92,6 +93,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
         fabCloseU.setOnClickListener(this);
         fabShowPic.setOnClickListener(this);
         btnPhotoU.setOnClickListener(this);
+
         SpendTypes = getResources().getStringArray(R.array.types);
         adapter = new ArrayAdapter<>(getActivity(), R.layout.type_dropdown_item, SpendTypes);
         etTypeU.setAdapter(adapter);
@@ -112,9 +114,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
             etTypeU.setText(c.getType());
             btnDate.setText(c.getDate());
             btnTime.setText(c.getTime());
-            if(c.getMonthly()==1){
-                monthly=1;
-            }
+            blob = c.getPic();
             hasPic=true;
         }
         timePicker = new MaterialTimePicker.Builder()
@@ -131,7 +131,6 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
                 int minute = timePicker.getMinute();
                 int hour = timePicker.getHour();
                 time1 = String.format("%02d:%02d", hour, minute);
-                tvTime.setVisibility(View.VISIBLE);
                 btnTime.setText(time1);
                 timePicker.dismiss();
             }
@@ -152,7 +151,6 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
                 int year = systemCalender.get(Calendar.YEAR);
                 int monthOfYear = systemCalender.get(Calendar.MONTH) + 1;
                 int dayOfMonth = systemCalender.get(Calendar.DAY_OF_MONTH);
-                tvDate.setVisibility(View.VISIBLE);
                 date1 = String.format("%02d/%02d/%d", dayOfMonth, monthOfYear, year);
                 btnDate.setText(date1);
                 datePicker.dismiss();
@@ -196,7 +194,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
 
             }
             else{
-                Spending s = new Spending(desc,priceDouble,type1,date1,time1,img,monthlyExp);
+                Spending s = new Spending(desc,priceDouble,type1,date1,time1,img);
                 s.setId(id);
                 soh.open();
                 soh.updateSpending(s);
@@ -230,8 +228,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
                 soh.open();
                 Spending c = soh.getSpendingbyID(id);
                 soh.close();
-                byte[] image = c.getPic();
-                Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+                Bitmap bitmap =BitmapFactory.decodeByteArray(blob, 0, blob.length);
                 imgPicU = dialog.findViewById(R.id.imgPic);
                 imgPicU.setImageBitmap(bitmap);
                 dialog.show();
@@ -244,6 +241,7 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
         }
 
     }
+
 
     @Override
     public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
@@ -295,9 +293,11 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
             if (data != null) {
                 Uri contentURI = data.getData();
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
+                    Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.length);
                     String path = saveImage(bitmap);
                     Toast.makeText(getActivity(), "Image Saved!", Toast.LENGTH_SHORT).show();
+                    bitmap=bitmap1;
                     imgPicU.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
@@ -311,9 +311,10 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             imgPicU.setImageBitmap(thumbnail);
             saveImage(thumbnail);
+            blob = imageViewToByte(imgPicU);
             Toast.makeText(getActivity(), "Image Saved!", Toast.LENGTH_SHORT).show();
         }}
-    public String saveImage( Bitmap myBitmap) {
+    public String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         File wallpaperDirectory = new File(
@@ -326,6 +327,9 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
 
     //Convert imageView to byte[]
     private byte[] imageViewToByte(ImageView image) {
+        if (image == null) {
+            return blob;
+        }
         Bitmap bitmap=((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
@@ -334,4 +338,5 @@ public class UpdateSpendingFragment extends Fragment implements View.OnClickList
     }
 
 
-    }
+
+}

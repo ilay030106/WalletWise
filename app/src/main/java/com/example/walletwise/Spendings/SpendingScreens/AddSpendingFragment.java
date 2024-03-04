@@ -1,18 +1,13 @@
 package com.example.walletwise.Spendings.SpendingScreens;
 
-import static androidx.core.content.ContextCompat.getSystemService;
 import static java.lang.Double.parseDouble;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -26,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +29,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.walletwise.R;
+import com.example.walletwise.Spendings.NotFinishedService;
 import com.example.walletwise.Spendings.SpendOpenHelper.Spending;
 import com.example.walletwise.Spendings.SpendOpenHelper.SpendingsOpenHelper;
 import com.example.walletwise.UserInfoAndHomeScreen.AppScreen;
@@ -51,10 +46,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Objects;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class AddSpendingFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class AddSpendingFragment extends Fragment implements View.OnClickListener {
     TextInputEditText etDesc, etPrice;
     MaterialTimePicker timePicker;
     MaterialDatePicker datePicker;
@@ -75,8 +69,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
     Bitmap bitmap1;
     double priceDouble=0;
     byte []img;
-    MaterialSwitch swtchMonthlyExp;
-    int monthly=0;
+
     boolean finished;
     String[] Months;
 
@@ -106,14 +99,12 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
         fabShowPic = view.findViewById(R.id.fabShowPic);
         imgPic = view.findViewById(R.id.imgPic);
         etType = view.findViewById(R.id.etTypeDropMenu);
-        swtchMonthlyExp = view.findViewById(R.id.swtchMonthlyExp);
         btnAddSpend.setOnClickListener(this);
         btnDate.setOnClickListener(this);
         btnTime.setOnClickListener(this);
         btnPhoto.setOnClickListener(this);
         fabClose.setOnClickListener(this);
         fabShowPic.setOnClickListener(this);
-        swtchMonthlyExp.setOnCheckedChangeListener(this);
         types = getResources().getStringArray(R.array.types);
         adapter = new ArrayAdapter<>(getActivity(), R.layout.type_dropdown_item, types);
         etType.setAdapter(adapter);
@@ -153,7 +144,7 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
                 int year = systemCalender.get(Calendar.YEAR);
                 int monthOfYear = systemCalender.get(Calendar.MONTH);
                 int dayOfMonth1 = systemCalender.get(Calendar.DAY_OF_MONTH);
-                dayOfMonth=String.format("%02d",dayOfMonth1);
+                dayOfMonth=Integer.toString(dayOfMonth1);
                 monthAndYear = year  + " " + Months[monthOfYear];
                 date1 = String.format("%02d/%02d/%d", dayOfMonth1, monthOfYear+1, year);
                 btnDate.setText(date1);
@@ -202,25 +193,17 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
             } else if (time1.equals("") && date1.equals("")) {
                 Toast.makeText(getActivity(), "אתה צריך לבחור תאריך ושעה בשביל לשמור הוצאה", Toast.LENGTH_LONG).show();
             }
-           /* else if(spendType.equals("")){
-                Toast.makeText(getActivity(),"אתה צריך לבחור סוג להוצאה כדי לשמור אותה",Toast.LENGTH_LONG).show();
-            }*/
+
             else if (priceDouble <= 0) {
                 etDesc.setError("המחיר צריך להיות גדול מ0");
             } else {
                 soh.open();
-                Spending spend = new Spending(desc, priceDouble, type1, date1, time1, img,monthly);
+                Spending spend = new Spending(desc, priceDouble, type1, date1, time1, img);
                 soh.createSpending(spend);
                 soh.close();
                 finished=true;
                 Toast.makeText(getActivity(), "ההוצאה נשמרה בהצלחה! ", Toast.LENGTH_LONG).show();
-                if(monthly==1){
-                    Intent i= new Intent(getActivity(), MonthlyExpService.class);
-                    i.putExtra("dayOfMonth",dayOfMonth);
-                    i.putExtra("monthAndYear",monthAndYear);
-                    i.putExtra("desc",desc);
-                    requireActivity().startService(i);
-                }
+
 
 
 
@@ -244,27 +227,9 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
             }
         }
     }
-    @Override
-    public void onCheckedChanged(CompoundButton cb, boolean b) {
-        if(cb==swtchMonthlyExp&& b){
-            monthly=1;
-            swtchMonthlyExp.setThumbIconDrawable(getResources().getDrawable(R.drawable.spendings_full));
-            swtchMonthlyExp.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
-            swtchMonthlyExp.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.switchBlue)));
-
-            //לעשות סרוויס להוצאה קבועה
-        }
-        if(cb==swtchMonthlyExp&& !b){
-            monthly=0;
-            swtchMonthlyExp.setThumbIconDrawable(getResources().getDrawable(R.drawable.spending_tracker_icon));
-            swtchMonthlyExp.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.switchBlue)));
-            swtchMonthlyExp.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
-            //לעשות סרוויס להוצאה קבועה
-        }
 
 
 
-    }
 
 
 
@@ -352,16 +317,6 @@ public class AddSpendingFragment extends Fragment implements View.OnClickListene
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
-   /* private void setFutureAlarm(long timeInMillis)
-    {
-        Intent after = new Intent(getActivity(), MonthlyExpService.class);
-        PendingIntent afterIntent = PendingIntent.getService(getActivity(),
-                0, after, PendingIntent.FLAG_IMMUTABLE);
-
-        AlarmManager alMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alMgr.set(AlarmManager.RTC_WAKEUP, timeInMillis, afterIntent);
-
-    }*/
 
     @Override
     public void onDestroy() {
