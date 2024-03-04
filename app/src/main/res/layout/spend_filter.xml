@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_project_rsz"
+            android:background="@drawable/bg_project2_rsz"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="visible">
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="האם אתה רוצה לחפש הוצאות על פי חודש ושנה?"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="האם אתה רוצה לחפש הוצאות על פי סוג הוצאה?"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="האם אתה רוצה לחפש הוצאות על פי מחיר?"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -120,7 +120,7 @@
                         android:hint="מחיר מינימלי"
                         android:inputType="text"
                         android:textColor="#FFFFFF"
-                        android:textColorHint="@color/white"
+                        android:textColorHint="@color/black"
                         android:visibility="visible" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,7 +140,7 @@
                         android:hint="מחיר מקסימלי"
                         android:inputType="text"
                         android:textColor="#FFFFFF"
-                        android:textColorHint="@color/white"
+                        android:textColorHint="@color/black"
                         android:visibility="visible" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

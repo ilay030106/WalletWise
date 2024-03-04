@@ -230,8 +230,8 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
         month = "";
         year = "";
 
-        npMonths.setTextColor(requireContext().getColor(R.color.white));
-        npYears.setTextColor(requireContext().getColor(R.color.white));
+        npMonths.setTextColor(requireContext().getColor(R.color.black));
+        npYears.setTextColor(requireContext().getColor(R.color.black));
         //להעביר את הכפורים של העברת חודשים לדיאלוג הזה
     }
 
