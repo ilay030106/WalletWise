@@ -1,30 +1,20 @@
 package com.example.walletwise.UserInfoAndHomeScreen;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
 
 import com.example.walletwise.Earnings.EarningScreens.EarningListFragment;
 import com.example.walletwise.R;
 import com.example.walletwise.Spendings.SpendingScreens.SpendingListFragment;
-import com.example.walletwise.UserInfoAndHomeScreen.HomeScreenFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import me.ibrahimsn.lib.OnItemSelectedListener;
-import me.ibrahimsn.lib.SmoothBottomBar;
 
 
 public class AppScreen extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
@@ -55,7 +45,7 @@ public class AppScreen extends AppCompatActivity implements NavigationBarView.On
     public void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.SpendingScreenFragmentContainer,fragment);
+        fragmentTransaction.replace(R.id.AppFragmentContainer,fragment);
         fragmentTransaction.commit();
     }
 

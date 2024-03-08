@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -33,7 +31,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.walletwise.Earnings.EarningScreens.AddEarningFragment;
 import com.example.walletwise.R;
 import com.example.walletwise.RecyclerItemClickListener;
 import com.example.walletwise.Spendings.SpendOpenHelper.Spending;
@@ -41,10 +38,7 @@ import com.example.walletwise.Spendings.SpendOpenHelper.SpendingAdapter;
 import com.example.walletwise.Spendings.SpendOpenHelper.SpendingsOpenHelper;
 import com.example.walletwise.UserInfoAndHomeScreen.AppScreen;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchBar;
@@ -375,7 +369,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
         usf.setArguments(idB);
 
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.SpendingScreenFragmentContainer, usf)
+                .replace(R.id.AppFragmentContainer, usf)
                 .addToBackStack(null)
                 .commit();
     }

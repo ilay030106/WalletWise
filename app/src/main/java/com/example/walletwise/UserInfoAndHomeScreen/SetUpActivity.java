@@ -14,11 +14,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.walletwise.R;
+import com.google.android.material.button.MaterialButton;
 
 public class SetUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText etName, etWage;
-    Button btnLogIn;
+    MaterialButton btnLogIn;
 
     private static final String PREFS_NAME = "setUpComplete";
     private static final String KEY_ACTIVITY_SHOWN = "activityShown";

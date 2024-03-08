@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:cardCornerRadius="30dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_project2_rsz"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <CheckBox
+                android:id="@+id/cbChangeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="האם אתה רוצה לשנות את שמך?"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/black"
+                    app:helperText="*חובה"
+                    app:helperTextTextColor="@color/black"
+                    app:shapeAppearanceOverlay="@style/EditTextRoundedCorners"
+                    app:startIconContentDescription="שם המשתמש"
+                    app:startIconDrawable="@drawable/user_icon"
+                    app:startIconTint="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNameU"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="אנא עדכן את שמך"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cbSpendType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="האם אתה רוצה לשנות את שכרך השעתי?"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="אנא ציין את השכר השעתי שלך"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:counterTextColor="@color/black"
+                app:helperText="*חובה"
+                app:helperTextTextColor="@color/black"
+                app:prefixText="₪"
+                app:prefixTextColor="@color/black"
+                app:shapeAppearanceOverlay="@style/EditTextRoundedCorners"
+                app:startIconContentDescription="שכר שעתי"
+                app:startIconDrawable="@drawable/shekel_sign_icon"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/etWageU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:maxLength="10"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/lightBlue"
+                android:text="עדכן פרטים"
+                android:textStyle="bold"
+                app:icon="@drawable/update_icon" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

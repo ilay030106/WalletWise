@@ -61,7 +61,7 @@
         app:helperText="*חובה"
         app:helperTextTextColor="@color/black"
         app:shapeAppearanceOverlay="@style/EditTextRoundedCorners"
-        app:startIconContentDescription="תיאור ההוצאה"
+        app:startIconContentDescription="שם המשתמש"
         app:startIconDrawable="@drawable/user_icon"
         app:startIconTint="@color/black">
 
@@ -112,14 +112,16 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/lightBlue"
-        android:text="אני מוכן להתחיל"
+        android:text="בואו נתחיל"
         android:textAllCaps="true"
         android:textStyle="bold"
+        app:icon="@drawable/login_icon"
+
        	/>
 
 

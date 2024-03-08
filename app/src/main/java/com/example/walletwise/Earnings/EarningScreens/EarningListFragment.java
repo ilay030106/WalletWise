@@ -200,7 +200,7 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
         uef.setArguments(idB);
 
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.SpendingScreenFragmentContainer, uef)
+                .replace(R.id.AppFragmentContainer, uef)
                 .addToBackStack(null)
                 .commit();
     }
