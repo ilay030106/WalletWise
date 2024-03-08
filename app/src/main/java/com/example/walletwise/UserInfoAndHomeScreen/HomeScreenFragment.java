@@ -37,8 +37,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
     private FloatingActionButton fabNextMonth1, fabPrevMonth1;
     private SpendingsOpenHelper soh;
     private EarningsOpenHelper eoh;
-    private PieChart pieChart;
-    private Dialog dialog;
+
     private double sumSpend = 0, sumEarn = 0, sumState = 0;
     private int[] colorValues;
 
@@ -196,36 +195,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
         }
 
     }
-    public void pieChartSetUp() {
-        PieDataSet pieDataSet = new PieDataSet(TypesDataByDate(curMonthS, curYearS, types), "data set 1");
-        pieDataSet.setColors(colorValues);
-        pieDataSet.setValueTextSize(12);
-        pieDataSet.setSliceSpace(3);
-        PieData pieData = new PieData(pieDataSet);
-        pieChart.clear();
-        pieChart.setData(pieData);
-        pieChart.setDrawEntryLabels(true);
-        pieChart.setCenterText("מידע מפורט על ההוצאות ב" + Months[curMonth] +" "+  curYearS);
-        pieChart.setCenterTextSize(18);
-        pieChart.setCenterTextRadiusPercent(80);
-        pieChart.setTransparentCircleRadius(40);
-        pieChart.setTransparentCircleAlpha(20);
 
-    }
-
-    private ArrayList<PieEntry> TypesDataByDate(String month, String year, String[] types) {
-        ArrayList<PieEntry> dataVals = new ArrayList<PieEntry>();
-        int count = soh.countAllSpendingsByDate(month, year);
-        for (int i = 0; i < types.length; i++) {
-            if(soh.ExistTypeByDate(month,year,types[i])){
-                int typeCount = soh.getCountOfSpendTypeAndDate(month, year, types[i]);
-                double precent = (typeCount / count) * 100;
-                dataVals.add(new PieEntry((float) precent, types[i]));
-            }
-
-        }
-        return dataVals;
-    }
 
 
 

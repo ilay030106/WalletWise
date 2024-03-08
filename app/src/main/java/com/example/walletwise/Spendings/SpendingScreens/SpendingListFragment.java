@@ -124,6 +124,7 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void onLongItemClick(View view, int position) {
+                showDeleteDialog(((SpendingAdapter) recyclerView.getAdapter()).getSpendingId(position));
             }
         }));
         sumSpend = soh.getSumSpendingByDate(CurMonthS, CurYearS);
@@ -163,6 +164,9 @@ public class SpendingListFragment extends Fragment implements View.OnClickListen
                     }
                 })
                 .build();    }
+
+    private void showDeleteDialog(long spendingId) {
+    }
 
     private void showSpendInfoDialog() {
         dialog = new Dialog(getActivity());

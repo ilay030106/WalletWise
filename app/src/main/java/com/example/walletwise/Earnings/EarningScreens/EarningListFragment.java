@@ -21,6 +21,7 @@ import com.example.walletwise.Earnings.EarnOpenHelper.EarningAdapter;
 import com.example.walletwise.Earnings.EarnOpenHelper.EarningsOpenHelper;
 import com.example.walletwise.R;
 import com.example.walletwise.RecyclerItemClickListener;
+import com.example.walletwise.Spendings.SpendOpenHelper.SpendingAdapter;
 import com.example.walletwise.UserInfoAndHomeScreen.AppScreen;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -102,6 +103,7 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
 
             @Override
             public void onLongItemClick(View view, int position) {
+                showDeleteDialog(((EarningAdapter) recyclerView.getAdapter()).getEarningId(position));
 
             }
         }));
@@ -135,6 +137,9 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
                     }
                 })
                 .build();
+    }
+
+    private void showDeleteDialog(long earningId) {
     }
 
 
