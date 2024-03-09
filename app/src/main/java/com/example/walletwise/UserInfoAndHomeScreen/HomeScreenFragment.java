@@ -7,10 +7,13 @@ import static java.lang.String.format;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,23 +26,32 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class HomeScreenFragment extends Fragment implements View.OnClickListener {
-    private TextView tvUserName, tvCurDate, tvCurCashState, tvCurCashStateNum, tvCurMonthEarningsNum, tvCurMonthSpendingsNum, tvState, tvStateP2;
-    private String[] Months, types;
-    private Calendar c = Calendar.getInstance();
-    private int curMonth = c.get(Calendar.MONTH), curYear = c.get(Calendar.YEAR);
-    private String name = "", curMonthDisplay = "", DateToDisplay = "", curYearS = Integer.toString(curYear), curMonthS = "", spendSumS = "", earnSumS = "", sumstateS = "";
-    private FloatingActionButton fabNextMonth1, fabPrevMonth1;
-    private SpendingsOpenHelper soh;
-    private EarningsOpenHelper eoh;
+public class HomeScreenFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    TextView tvUserName, tvCurDate, tvCurCashState, tvCurCashStateNum, tvCurMonthEarningsNum, tvCurMonthSpendingsNum, tvState, tvStateP2,tvChangeInfo;
+    String[] Months, types;
+     Calendar c = Calendar.getInstance();
+    int curMonth = c.get(Calendar.MONTH), curYear = c.get(Calendar.YEAR);
+    String name = "", curMonthDisplay = "", DateToDisplay = "", curYearS = Integer.toString(curYear), curMonthS = "", spendSumS = "", earnSumS = "", sumstateS = "";
+    FloatingActionButton fabNextMonth1, fabPrevMonth1;
+    SpendingsOpenHelper soh;
+    EarningsOpenHelper eoh;
 
-    private double sumSpend = 0, sumEarn = 0, sumState = 0;
-    private int[] colorValues;
+    double sumSpend = 0, sumEarn = 0, sumState = 0;
+    int[] colorValues;
+    Dialog dialog;
+    MaterialCheckBox cbChangeWage,cbChangeName;
+    TextInputLayout nameLay,wageLay;
+    TextInputEditText etNameU,etwageU;
+    boolean changeName=false,changeWage=false;
+
 
 
 
@@ -48,6 +60,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
         soh = new SpendingsOpenHelper(getActivity());
         eoh = new EarningsOpenHelper(getActivity());
+        tvChangeInfo=view.findViewById(R.id.tvChangeInfo);
         tvCurDate = view.findViewById(R.id.tvCurDate);
         tvUserName = view.findViewById(R.id.tvUserName);
         tvCurCashState = view.findViewById(R.id.tvCurCashState);
@@ -63,8 +76,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
         tvUserName.setText(" " + "ברוך הבא " + name);
         fabNextMonth1.setOnClickListener(this);
         fabPrevMonth1.setOnClickListener(this);
-
-//להעביר תרשים עוגה למסך הוצאות
+        tvChangeInfo.setOnClickListener(this);
 
         Months = getResources().getStringArray(R.array.months);
         types = getResources().getStringArray(R.array.types);
@@ -105,6 +117,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
 
         }
         colorValues =new int[] {getResources().getColor(R.color.lightBlue),getResources().getColor(R.color.babyBlue),getResources().getColor(R.color.egyptianBlue),getResources().getColor(R.color.blueishWhite),getResources().getColor(R.color.darkBlue),getResources().getColor(R.color.Turquoise),getResources().getColor(R.color.brightBlue),getResources().getColor(R.color.Glaucous)};
+
         return view;
     }
 
@@ -193,10 +206,53 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
             }
 
         }
+        if(v==tvChangeInfo){
+            showChangeInfoDialog();
+        }
+        
+
+    }
+
+    private void showChangeInfoDialog() {
+        dialog = new Dialog(requireContext());
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.change_name_or_wage);
+        cbChangeWage=dialog.findViewById(R.id.cbChangeWage);
+        cbChangeName=dialog.findViewById(R.id.cbChangeName);
+        nameLay=dialog.findViewById(R.id.nameLay);
+        wageLay=dialog.findViewById(R.id.wageLay);
+        etNameU=dialog.findViewById(R.id.etNameU);
+        etwageU=dialog.findViewById(R.id.etWageU);
+        cbChangeName.setOnCheckedChangeListener(this);
+        cbChangeWage.setOnCheckedChangeListener(this);
+
+
 
     }
 
 
+    @Override
+    public void onCheckedChanged(CompoundButton cb, boolean b) {
+        if(cb==cbChangeName&&b){
+            nameLay.setVisibility(View.VISIBLE);
+            changeName=true;
+        }
+        if(cb==cbChangeName&&!b){
+            nameLay.setVisibility(View.GONE);
+            changeName=false;
+
+        }
+        if(cb==cbChangeWage&&b){
+            wageLay.setVisibility(View.VISIBLE);
+            changeWage=true;
+        }
+        if(cb==cbChangeWage&&!b){
+            wageLay.setVisibility(View.GONE);
+            changeWage=false;
+
+        }
 
 
+    }
 }

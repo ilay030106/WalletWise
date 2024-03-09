@@ -20,7 +20,7 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <CheckBox
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/cbChangeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,12 +36,14 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nameLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:paddingTop="10dp"
                     android:paddingRight="15dp"
                     android:paddingBottom="15dp"
+                    android:visibility="gone"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/black"
                     app:helperText="*חובה"
@@ -64,8 +66,8 @@
 
             </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/cbSpendType"
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbChangeWage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="האם אתה רוצה לשנות את שכרך השעתי?"
@@ -74,13 +76,15 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/wageLay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="אנא ציין את השכר השעתי שלך"
+                android:hint="אנא עדכן את השכר השעתי שלך"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:paddingRight="15dp"
                 android:paddingBottom="10dp"
+                android:visibility="gone"
                 app:counterEnabled="true"
                 app:counterMaxLength="10"
                 app:counterTextColor="@color/black"
