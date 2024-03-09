@@ -83,39 +83,6 @@
             </com.linroid.filtermenu.library.FilterMenuLayout>
         </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/MonthlyInfoLay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="33dp"
-            android:gravity="left"
-            android:orientation="horizontal"
-            android:visibility="invisible">
-
-            <TextView
-                android:id="@+id/tvMonthlyHours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="00:00 שעות "
-                android:textColor="@color/black"
-                android:textSize="27sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvMonthlyEarnings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:text=" ₪0"
-                android:textColor="@color/black"
-                android:textSize="27sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

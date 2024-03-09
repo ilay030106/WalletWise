@@ -33,7 +33,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="gone" />
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStartDateU"
         android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStartTimeU"
@@ -84,8 +84,8 @@
         android:text="בחר את תאריך סוף המשמרת"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
-        app:icon="@drawable/date_icon"/>
+        android:visibility="visible"
+        app:icon="@drawable/date_icon" />
 
     <TextView
         android:id="@+id/tvEndTimeU"
@@ -106,37 +106,37 @@
         android:text="בחר את שעת סוף המשמרת"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
-        app:icon="@drawable/time_icon"/>
+        android:visibility="visible"
+        app:icon="@drawable/time_icon" />
 
     <CheckBox
         android:id="@+id/cbTipU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="האם במהלך המשמרת קיבלת טיפים?"
-        android:textColor="@color/black"
-        android:checked="false"/>
+        android:textColor="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/layTipU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:endIconContentDescription="מחיר ההוצאה"
         app:endIconDrawable="@drawable/shekel_sign_icon"
         app:endIconMode="custom"
-        app:startIconTint="@color/lightBlue"
         app:prefixText="₪"
-        >
+        app:startIconTint="@color/lightBlue">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTipU"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="מה היא הכמות שהרווחת מטיפים?"
             android:inputType="numberDecimal"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
             android:textColorHint="@color/black" />
 
 

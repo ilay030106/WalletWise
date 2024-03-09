@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class EarningListFragment extends Fragment implements  View.OnClickListener {
-    TextView tvCurEarningMonth, tvMonthlyHours, tvMonthlyEarnings, tvHoursNum, tvPaymentNum, tvTipsNum, tvEarningNum;
+    TextView tvCurEarningMonth, tvHoursNum, tvPaymentNum, tvTipsNum, tvEarningNum;
     String Months[];
     Calendar c = Calendar.getInstance();
     int curMonth, curYear, hours = 0, minutes = 0;
@@ -44,7 +44,7 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
     RecyclerView recyclerView;
     ArrayList<Earning> listOfEarnings;
     EarningAdapter earningAdapter;
-    LinearLayout monthlyInfoLay;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +69,7 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
         tvCurEarningMonth = view.findViewById(R.id.tvCurEarningMonth);
         fabNextMonth = view.findViewById(R.id.fabNextMonth);
         fabPrevMonth = view.findViewById(R.id.fabPrevMonth);
-        tvMonthlyHours = view.findViewById(R.id.tvMonthlyHours);
-        tvMonthlyEarnings = view.findViewById(R.id.tvMonthlyEarnings);
+
         Months = getResources().getStringArray(R.array.months);
         curMonth = c.get(Calendar.MONTH);
         curYear = c.get(Calendar.YEAR);
@@ -87,8 +86,6 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
         hours = eoh.calculateHoursbyDate(curMonthS, curYearS);
         minutes = eoh.calculateMinutesbyDate(curMonthS, curYearS);
         monthlyHours = String.format("%02d:%02d", hours, minutes);
-        tvMonthlyEarnings.setText(" " + sumEarn);
-        tvMonthlyHours.setText(monthlyHours + "שעות");
         SharedPreferences earnInfo = getActivity().getSharedPreferences("earnInfo", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor earnInfoEdit = earnInfo.edit();
         earnInfoEdit.putString("month", curMonthS);
@@ -111,7 +108,6 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
         recyclerView.addItemDecoration(divider);
         divider.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.item_divider));
         recyclerView.addItemDecoration(divider);
-        monthlyInfoLay=view.findViewById(R.id.MonthlyInfoLay);
         FilterMenuLayout layout=(FilterMenuLayout) view.findViewById(R.id.filter_menuEarnings);
         FilterMenu menu= new FilterMenu.Builder(getActivity())
                 .inflate(R.menu.filter_menu)
@@ -129,11 +125,9 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
                     }
                     @Override
                     public void onMenuCollapse() {
-                        monthlyInfoLay.setVisibility(View.GONE);
                     }
                     @Override
                     public void onMenuExpand() {
-                        monthlyInfoLay.setVisibility(View.VISIBLE);
                     }
                 })
                 .build();
@@ -163,8 +157,6 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
             hours = eoh.calculateHoursbyDate(curMonthS, curYearS);
             minutes = eoh.calculateMinutesbyDate(curMonthS, curYearS);
             monthlyHours = String.format("%02d:%02d", hours, minutes);
-            tvMonthlyEarnings.setText(" " + sumEarn);
-            tvMonthlyHours.setText(monthlyHours + "שעות");
             SharedPreferences earnInfo = getActivity().getSharedPreferences("earnInfo", getActivity().MODE_PRIVATE);
             SharedPreferences.Editor earnInfoEdit = earnInfo.edit();
             earnInfoEdit.putString("month", curMonthS);
@@ -188,8 +180,6 @@ public class EarningListFragment extends Fragment implements  View.OnClickListen
             hours = eoh.calculateHoursbyDate(curMonthS, curYearS);
             minutes = eoh.calculateMinutesbyDate(curMonthS, curYearS);
             monthlyHours = String.format("%02d:%02d", hours, minutes);
-            tvMonthlyEarnings.setText(" " + sumEarn);
-            tvMonthlyHours.setText(monthlyHours + "שעות");
             SharedPreferences earnInfo = getActivity().getSharedPreferences("earnInfo", getActivity().MODE_PRIVATE);
             SharedPreferences.Editor earnInfoEdit = earnInfo.edit();
             earnInfoEdit.putString("month", curMonthS);

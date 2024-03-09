@@ -23,13 +23,14 @@
             app:srcCompat="@drawable/close_icon"
             android:backgroundTint="@color/lightBlue"/>
     </LinearLayout>
+
     <TextView
         android:id="@+id/tvStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="תאריך תחילת המשמרת"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -49,11 +50,10 @@
         android:layout_height="wrap_content"
         android:text="שעת תחילת המשמרת"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStartTime"
@@ -64,13 +64,14 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:icon="@drawable/time_icon"/>
+
     <TextView
         android:id="@+id/tvEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="תאריך סוף המשמרת"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -83,8 +84,8 @@
         android:text="בחר את תאריך סוף המשמרת"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
-        app:icon="@drawable/date_icon"/>
+        android:visibility="visible"
+        app:icon="@drawable/date_icon" />
 
     <TextView
         android:id="@+id/tvEndTime"
@@ -92,7 +93,7 @@
         android:layout_height="wrap_content"
         android:text="שעת סוף המשמרת"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -105,8 +106,8 @@
         android:text="בחר את שעת סוף המשמרת"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
-        app:icon="@drawable/time_icon"/>
+        android:visibility="visible"
+        app:icon="@drawable/time_icon" />
 
     <CheckBox
         android:id="@+id/cbTip"
@@ -115,20 +116,20 @@
         android:checked="false"
         android:text="האם במהלך המשמרת קיבלת טיפים?"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/layTip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="מה היא כמות הטיפים שקיבלת במשמרת?"
         android:visibility="gone"
         app:endIconContentDescription="מחיר ההוצאה"
         app:endIconDrawable="@drawable/shekel_sign_icon"
         app:endIconMode="custom"
-        app:startIconTint="@color/lightBlue"
         app:prefixText="₪"
-        android:hint="מה היא כמות הטיפים שקיבלת במשמרת?">
+        app:startIconTint="@color/lightBlue">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTip"
@@ -136,8 +137,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:textColor="#FFFFFF"
-            android:textColorHint="@color/white" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
