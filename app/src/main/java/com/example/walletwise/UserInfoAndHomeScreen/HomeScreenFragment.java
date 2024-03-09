@@ -226,6 +226,7 @@ public class HomeScreenFragment extends Fragment implements View.OnClickListener
         etwageU=dialog.findViewById(R.id.etWageU);
         cbChangeName.setOnCheckedChangeListener(this);
         cbChangeWage.setOnCheckedChangeListener(this);
+        dialog.show();
 
 
 
